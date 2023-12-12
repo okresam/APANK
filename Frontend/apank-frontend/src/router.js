@@ -28,4 +28,11 @@ const router = createRouter({
     routes
 })
 
+router.beforeEach(async (to, from) => {
+
+    if (store.state.user && (to.name === 'Login' || to.name === 'Register')) {
+        return { name: 'home' }
+    }
+})
+
 export default router

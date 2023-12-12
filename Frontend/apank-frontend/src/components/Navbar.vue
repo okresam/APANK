@@ -7,7 +7,12 @@
           </div>
         </RouterLink>
         
-        <div class="flex gap-10 flex-1 justify-end">
+        <div v-if="$store.state.user" class="flex gap-10 flex-1 justify-end">
+          <p class="text-xl">{{ this.$store.state.user.ime }}  {{ this.$store.state.user.prezime }}</p>
+          <button class="text-xl hover:text-gray-300" @click="logout">Odjavi se</button>
+        </div>
+
+        <div v-else class="flex gap-10 flex-1 justify-end">
           <RouterLink :to="{ name: 'Login' }">
             <p class="text-xl hover:text-gray-300">Prijava</p>
           </RouterLink>
@@ -22,4 +27,20 @@
 <script>
 import { RouterLink } from 'vue-router';
 
+export default {
+  data() {
+    return {
+
+    }
+  },
+  methods: {
+    async logout() {
+      if (confirm("Odjava iz sustava?")) {
+        this.$store.state.user = undefined
+        sessionStorage.clear()
+        this.$router.push("/login")
+      }
+    }
+  }
+}
 </script>

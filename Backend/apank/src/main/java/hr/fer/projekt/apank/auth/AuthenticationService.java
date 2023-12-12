@@ -47,6 +47,10 @@ public class AuthenticationService {
         var jwtToken = jwtService.generateToken(korisnik);
         return AuthenticationResponse.builder()
                 .token(jwtToken)
+                .ime(korisnik.getIme())
+                .prezime(korisnik.getPrezime())
+                .email(korisnik.getEmail())
+                .idKorisnika(korisnik.getIdKorisnika())
                 .build();
     }
 }

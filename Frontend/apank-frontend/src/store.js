@@ -7,7 +7,7 @@ const vuexLocal = new VuexPersistence({
 
 const store = createStore({
     state: {
-
+        user: undefined,
     },
     getters: {
 
