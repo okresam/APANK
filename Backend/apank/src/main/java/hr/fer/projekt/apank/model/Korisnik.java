@@ -1,12 +1,26 @@
 package hr.fer.projekt.apank.model;
 
+import hr.fer.projekt.apank.model.util.Role;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Set;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "korisnik")
-public class Korisnik {
+public class Korisnik implements UserDetails {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,65 +39,47 @@ public class Korisnik {
     @Column(name = "lozinka")
     private String lozinka;
 
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     @OneToMany(mappedBy = "autor")
     private Set<Anketa> ankete;
 
     @OneToMany(mappedBy = "korisnik")
     private Set<Odgovor> odgovori;
 
-    public Korisnik() {
-
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        return List.of(new SimpleGrantedAuthority(role.name()));
     }
 
-    public Long getIdKorisnika() {
-        return idKorisnika;
-    }
-
-    public String getIme() {
-        return ime;
-    }
-
-    public void setIme(String ime) {
-        this.ime = ime;
-    }
-
-    public String getPrezime() {
-        return prezime;
-    }
-
-    public void setPrezime(String prezime) {
-        this.prezime = prezime;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getLozinka() {
+    @Override
+    public String getPassword() {
         return lozinka;
     }
 
-    public void setLozinka(String lozinka) {
-        this.lozinka = lozinka;
+    @Override
+    public String getUsername() {
+        return email;
     }
 
-    public Set<Anketa> getAnkete() {
-        return ankete;
+    @Override
+    public boolean isAccountNonExpired() {
+        return true;
     }
 
-    public void setAnkete(Set<Anketa> ankete) {
-        this.ankete = ankete;
+    @Override
+    public boolean isAccountNonLocked() {
+        return true;
     }
 
-    public Set<Odgovor> getOdgovori() {
-        return odgovori;
+    @Override
+    public boolean isCredentialsNonExpired() {
+        return true;
     }
 
-    public void setOdgovori(Set<Odgovor> odgovori) {
-        this.odgovori = odgovori;
+    @Override
+    public boolean isEnabled() {
+        return true;
     }
 }
