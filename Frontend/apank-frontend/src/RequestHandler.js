@@ -1,16 +1,14 @@
 import axios from 'axios'
 
-let headers = { headers: {
-    'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem("user")).token
-} }
-
 class RequestHandler {
 
     async postRequest(address, data) {
         let temp
 
         await axios.post(address, data, {
-            headers
+            headers: {
+                'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem("user")).token
+            }
         })
         .then(response => {
             temp = response.data
@@ -25,7 +23,9 @@ class RequestHandler {
         let temp
 
         await axios.get(address, {
-            headers
+            headers: {
+                'Authorization': 'Bearer ' + JSON.parse(sessionStorage.getItem("user")).token
+            }
         })
         .then(response => {
             temp = response.data

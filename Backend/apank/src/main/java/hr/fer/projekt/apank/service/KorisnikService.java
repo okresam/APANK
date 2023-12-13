@@ -12,4 +12,5 @@ public interface KorisnikService {
     Korisnik createKorisnik(Korisnik korisnik);
 
     Optional<Korisnik> fetch(String email);
+
 }

@@ -1,7 +1,15 @@
 package hr.fer.projekt.apank.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "opcijapitanja")
 public class OpcijaPitanja {
@@ -18,27 +26,4 @@ public class OpcijaPitanja {
     @JoinColumn(name = "id_pitanja")
     private Pitanje pitanje;
 
-    public OpcijaPitanja() {
-
-    }
-
-    public Long getIdOpcijePitanja() {
-        return idOpcijePitanja;
-    }
-
-    public String getVrijednost() {
-        return vrijednost;
-    }
-
-    public void setVrijednost(String vrijednost) {
-        this.vrijednost = vrijednost;
-    }
-
-    public Pitanje getPitanje() {
-        return pitanje;
-    }
-
-    public void setPitanje(Pitanje pitanje) {
-        this.pitanje = pitanje;
-    }
 }

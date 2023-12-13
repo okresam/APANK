@@ -1,11 +1,21 @@
 package hr.fer.projekt.apank.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.sql.Date;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "odgovor")
 public class Odgovor {
@@ -35,53 +45,6 @@ public class Odgovor {
             joinColumns = { @JoinColumn(name = "id_odgovora") },
             inverseJoinColumns = { @JoinColumn(name = "id_opcije_pitanja") }
     )
-    Set<OpcijaPitanja> opcijePitanja = new HashSet<>();
+    List<OpcijaPitanja> opcijePitanja = new ArrayList<>();
 
-    public Odgovor() {
-
-    }
-
-    public Long getIdOdgovora() {
-        return idOdgovora;
-    }
-
-    public String getTekstOdgovora() {
-        return tekstOdgovora;
-    }
-
-    public void setTekstOdgovora(String tekstOdgovora) {
-        this.tekstOdgovora = tekstOdgovora;
-    }
-
-    public Date getDatumOdgovora() {
-        return datumOdgovora;
-    }
-
-    public void setDatumOdgovora(Date datumOdgovora) {
-        this.datumOdgovora = datumOdgovora;
-    }
-
-    public Korisnik getKorisnik() {
-        return korisnik;
-    }
-
-    public void setKorisnik(Korisnik korisnik) {
-        this.korisnik = korisnik;
-    }
-
-    public Pitanje getPitanje() {
-        return pitanje;
-    }
-
-    public void setPitanje(Pitanje pitanje) {
-        this.pitanje = pitanje;
-    }
-
-    public Set<OpcijaPitanja> getOpcijePitanja() {
-        return opcijePitanja;
-    }
-
-    public void setOpcijePitanja(Set<OpcijaPitanja> opcijePitanja) {
-        this.opcijePitanja = opcijePitanja;
-    }
 }

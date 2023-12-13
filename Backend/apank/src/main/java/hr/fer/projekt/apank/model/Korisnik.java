@@ -1,5 +1,6 @@
 package hr.fer.projekt.apank.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import hr.fer.projekt.apank.model.util.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -11,6 +12,7 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -43,10 +45,10 @@ public class Korisnik implements UserDetails {
     private Role role;
 
     @OneToMany(mappedBy = "autor")
-    private Set<Anketa> ankete;
+    private List<Anketa> ankete;
 
     @OneToMany(mappedBy = "korisnik")
-    private Set<Odgovor> odgovori;
+    private List<Odgovor> odgovori;
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {

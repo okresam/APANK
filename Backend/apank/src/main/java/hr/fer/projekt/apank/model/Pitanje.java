@@ -1,9 +1,18 @@
 package hr.fer.projekt.apank.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+import java.util.List;
 import java.util.Set;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "pitanje")
 public class Pitanje {
@@ -28,64 +37,9 @@ public class Pitanje {
     private Anketa anketa;
 
     @OneToMany(mappedBy = "pitanje")
-    private Set<OpcijaPitanja> opcijePitanja;
+    private List<OpcijaPitanja> opcijePitanja;
 
     @OneToMany(mappedBy = "pitanje")
-    private Set<Odgovor> odgovori;
+    private List<Odgovor> odgovori;
 
-    public Pitanje() {
-
-    }
-
-    public Long getIdPitanja() {
-        return idPitanja;
-    }
-
-    public String getTekstPitanja() {
-        return tekstPitanja;
-    }
-
-    public void setTekstPitanja(String tekstPitanja) {
-        this.tekstPitanja = tekstPitanja;
-    }
-
-    public boolean isObavezno() {
-        return obavezno;
-    }
-
-    public void setObavezno(boolean obavezno) {
-        this.obavezno = obavezno;
-    }
-
-    public TipPitanja getTipPitanja() {
-        return tipPitanja;
-    }
-
-    public void setTipPitanja(TipPitanja tipPitanja) {
-        this.tipPitanja = tipPitanja;
-    }
-
-    public Anketa getAnketa() {
-        return anketa;
-    }
-
-    public void setAnketa(Anketa anketa) {
-        this.anketa = anketa;
-    }
-
-    public Set<OpcijaPitanja> getOpcijePitanja() {
-        return opcijePitanja;
-    }
-
-    public void setOpcijePitanja(Set<OpcijaPitanja> opcijePitanja) {
-        this.opcijePitanja = opcijePitanja;
-    }
-
-    public Set<Odgovor> getOdgovori() {
-        return odgovori;
-    }
-
-    public void setOdgovori(Set<Odgovor> odgovori) {
-        this.odgovori = odgovori;
-    }
 }

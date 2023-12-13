@@ -4,12 +4,13 @@ import Login from './components/Login.vue'
 import HelloWorldVue from './components/HelloWorld.vue'
 import PleaseLogin from './components/PleaseLogin.vue'
 import Register from './components/Register.vue'
+import ListAnketa from './components/ListAnketa.vue'
 
 const routes = [
     {
         path: '/',
         name: 'home',
-        component: PleaseLogin
+        component: ListAnketa
     },
     {
         path: '/login',

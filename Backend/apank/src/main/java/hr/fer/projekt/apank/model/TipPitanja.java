@@ -1,7 +1,15 @@
 package hr.fer.projekt.apank.model;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "tippitanja")
 public class TipPitanja {
@@ -14,23 +22,4 @@ public class TipPitanja {
     @Column(name = "naziv_tipa_pitanja", nullable = false)
     private String nazivTipaPitanja;
 
-    public TipPitanja() {
-
-    }
-
-    public TipPitanja(String nazivTipaPitanja) {
-        this.nazivTipaPitanja = nazivTipaPitanja;
-    }
-
-    public Long getIdTipaPitanja() {
-        return idTipaPitanja;
-    }
-
-    public String getNazivTipaPitanja() {
-        return nazivTipaPitanja;
-    }
-
-    public void setNazivTipaPitanja(String nazivTipaPitanja) {
-        this.nazivTipaPitanja = nazivTipaPitanja;
-    }
 }
