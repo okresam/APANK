@@ -9,4 +9,8 @@ public interface AnketaService {
     void createAnketa(Anketa anketa);
 
     List<Anketa> getKorisnikAnkete(Long idAutora);
+
+    Anketa getAnketa(Long idAnkete);
+
+    void deleteAnketa(Long idAnkete);
 }

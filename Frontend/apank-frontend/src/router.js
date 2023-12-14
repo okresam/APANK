@@ -5,6 +5,7 @@ import HelloWorldVue from './components/HelloWorld.vue'
 import PleaseLogin from './components/PleaseLogin.vue'
 import Register from './components/Register.vue'
 import ListAnketa from './components/ListAnketa.vue'
+import Anketa from './components/Anketa.vue'
 
 const routes = [
     {
@@ -21,6 +22,11 @@ const routes = [
         path: '/register',
         name: 'Register',
         component: Register
+    },
+    {
+        path: '/anketa/:id',
+        name: 'Anketa',
+        component: Anketa
     }
 ]
 

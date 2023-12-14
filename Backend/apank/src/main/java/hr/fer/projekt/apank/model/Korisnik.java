@@ -1,5 +1,6 @@
 package hr.fer.projekt.apank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import hr.fer.projekt.apank.model.util.Role;
 import jakarta.persistence.*;

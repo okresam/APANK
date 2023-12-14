@@ -2,6 +2,7 @@ package hr.fer.projekt.apank.controller;
 
 import hr.fer.projekt.apank.model.Anketa;
 import hr.fer.projekt.apank.model.Korisnik;
+import hr.fer.projekt.apank.model.dto.AnketaDetailsDTO;
 import hr.fer.projekt.apank.model.dto.AnketaListDTO;
 import hr.fer.projekt.apank.model.dto.AnketaNewDTO;
 import hr.fer.projekt.apank.model.dto.IdDTO;
@@ -60,4 +61,27 @@ public class AnketaController {
 
         anketaService.createAnketa(anketa);
     }
+
+    @PostMapping("/get")
+    private AnketaDetailsDTO getAnketa(@RequestBody IdDTO idDTO) {
+        Anketa anketa = anketaService.getAnketa(Long.valueOf(idDTO.getId()));
+        return AnketaDetailsDTO.builder()
+                .idAnkete(anketa.getIdAnkete())
+                .naslov(anketa.getNaslov())
+                .opis(anketa.getOpis())
+                .anonimna(anketa.isAnonimna())
+                .datumStvaranja(anketa.getDatumStvaranja())
+                .datumZavrsetka(anketa.getDatumZavrsetka())
+                .statusAnkete(anketa.getStatusAnkete().getNazivStatusa())
+                .autorId(anketa.getAutor().getIdKorisnika())
+                .autorEmail(anketa.getAutor().getEmail())
+                .pitanja(anketa.getPitanja())
+                .build();
+    }
+
+    @PostMapping("/delete")
+    private void deleteAnketa(@RequestBody IdDTO idDTO) {
+        anketaService.deleteAnketa(Long.valueOf(idDTO.getId()));
+    }
+    
 }

@@ -42,8 +42,9 @@
 
                 <div class="mt-5 pb-4 grid grid-cols-3 gap-4">
                     <div v-if="ankete.length" v-for="anketa in ankete">
-                        <div class="w-full h-full rounded overflow-hidden shadow-lg">
-                            <div class="px-6 py-4">
+                        <div
+                            class="w-full h-full rounded overflow-hidden shadow-lg hover:cursor-pointer border bg-slate-200">
+                            <div @click="$router.push('/anketa/' + anketa.idAnkete)" class="px-6 py-4">
                                 <div class="font-bold text-xl mb-2">{{ anketa.naslov }}</div>
                                 <p class="text-gray-700 text-base">
                                     {{ anketa.opis }}

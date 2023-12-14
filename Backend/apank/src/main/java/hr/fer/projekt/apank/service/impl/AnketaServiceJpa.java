@@ -23,4 +23,14 @@ public class AnketaServiceJpa implements AnketaService {
     public List<Anketa> getKorisnikAnkete(Long idAutora) {
         return anketaRepository.findByAutor_IdKorisnika(idAutora);
     }
+
+    @Override
+    public Anketa getAnketa(Long idAnkete) {
+        return anketaRepository.findById(idAnkete).get();
+    }
+
+    @Override
+    public void deleteAnketa(Long idAnkete) {
+        anketaRepository.deleteById(idAnkete);
+    }
 }

@@ -1,5 +1,6 @@
 package hr.fer.projekt.apank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -7,7 +8,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.util.List;
-import java.util.Set;
 
 @Data
 @Builder
@@ -32,6 +32,7 @@ public class Pitanje {
     @JoinColumn(name = "id_tipa_pitanja")
     private TipPitanja tipPitanja;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_ankete")
     private Anketa anketa;
