@@ -4,6 +4,7 @@ import hr.fer.projekt.apank.model.Anketa;
 import hr.fer.projekt.apank.model.Pitanje;
 import hr.fer.projekt.apank.model.dto.IdDTO;
 import hr.fer.projekt.apank.model.dto.PitanjeNewDTO;
+import hr.fer.projekt.apank.model.dto.PitanjeUpdateDTO;
 import hr.fer.projekt.apank.service.AnketaService;
 import hr.fer.projekt.apank.service.PitanjeService;
 import hr.fer.projekt.apank.service.TipPitanjaService;
@@ -29,11 +30,18 @@ public class PitanjeController {
         Pitanje pitanje = Pitanje.builder()
                 .tekstPitanja(pitanjeNewDTO.getTekstPitanja())
                 .obavezno(false)
-                .tipPitanja(tipPitanjaService.fetch(Long.valueOf("1")))
+                .tipPitanja(tipPitanjaService.fetch(pitanjeNewDTO.getIdTipaPitanja()))
                 .anketa(anketa)
                 .build();
 
         pitanjeService.createPitanje(pitanje);
+    }
+
+    @PostMapping("/update")
+    private void updatePitanje(@RequestBody PitanjeUpdateDTO pitanjeUpdateDTO) {
+        Pitanje existingPitanje = pitanjeService.fetch(pitanjeUpdateDTO.getIdPitanja());
+        existingPitanje.setTekstPitanja(pitanjeUpdateDTO.getTekstPitanja());
+        pitanjeService.updatePitanje(existingPitanje);
     }
 
     @PostMapping("/delete")

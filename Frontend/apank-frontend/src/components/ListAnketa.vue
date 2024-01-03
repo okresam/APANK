@@ -89,6 +89,7 @@ export default {
     async mounted() {
         if (this.$store.state.user) {
             this.ankete = await RequestHandler.postRequest(SPRING_URL.concat('/korisnik/ankete'), { id: this.$store.state.user.email })
+            this.ankete.sort((a, b) => (a.idAnkete > b.idAnkete) ? 1 : -1)
         }
     },
     methods: {

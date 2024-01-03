@@ -21,4 +21,14 @@ public class PitanjeServiceJpa implements PitanjeService {
     public void deletePitanje(Long idPitanja) {
         pitanjeRepository.deleteById(idPitanja);
     }
+
+    @Override
+    public void updatePitanje(Pitanje pitanje) {
+        pitanjeRepository.save(pitanje);
+    }
+
+    @Override
+    public Pitanje fetch(Long idPitanja) {
+        return pitanjeRepository.findById(idPitanja).get();
+    }
 }

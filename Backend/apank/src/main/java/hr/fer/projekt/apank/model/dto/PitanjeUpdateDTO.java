@@ -9,10 +9,8 @@ import lombok.NoArgsConstructor;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class PitanjeNewDTO {
+public class PitanjeUpdateDTO {
 
+    private Long idPitanja;
     private String tekstPitanja;
-    private boolean obavezno;
-    private Long idAnkete;
-    private Long idTipaPitanja;
 }

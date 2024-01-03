@@ -6,6 +6,8 @@ import hr.fer.projekt.apank.service.TipPitanjaService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 @RequiredArgsConstructor
 public class TipPitanjaServiceJpa implements TipPitanjaService {
@@ -15,5 +17,10 @@ public class TipPitanjaServiceJpa implements TipPitanjaService {
     @Override
     public TipPitanja fetch(Long id) {
         return tipPitanjaRepository.findById(id).get();
+    }
+
+    @Override
+    public List<TipPitanja> listAll() {
+        return tipPitanjaRepository.findAll();
     }
 }
