@@ -37,6 +37,10 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
 
+    if (!store.state.user && to.name !== 'Login' && to.name !== 'Register') {
+        return { name: 'Login' }
+    }
+
     if (store.state.user && (to.name === 'Login' || to.name === 'Register')) {
         return { name: 'home' }
     }
