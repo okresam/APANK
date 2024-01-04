@@ -1,5 +1,6 @@
 package hr.fer.projekt.apank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +23,7 @@ public class OpcijaPitanja {
     @Column(name = "vrijednost", nullable = false)
     private String vrijednost;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_pitanja")
     private Pitanje pitanje;
