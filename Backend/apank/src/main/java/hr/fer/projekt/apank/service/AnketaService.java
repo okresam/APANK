@@ -13,4 +13,6 @@ public interface AnketaService {
     Anketa getAnketa(Long idAnkete);
 
     void deleteAnketa(Long idAnkete);
+
+    void updateAnketa(Anketa anketa);
 }

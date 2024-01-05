@@ -33,4 +33,9 @@ public class AnketaServiceJpa implements AnketaService {
     public void deleteAnketa(Long idAnkete) {
         anketaRepository.deleteById(idAnkete);
     }
+
+    @Override
+    public void updateAnketa(Anketa anketa) {
+        anketaRepository.save(anketa);
+    }
 }

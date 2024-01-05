@@ -59,6 +59,11 @@
             class="bg-apank-primary hover:bg-cyan-700 text-white text-sm font-semibold px-4 py-2 mb-5 rounded">
             Novo pitanje
         </button>
+
+        <button @click="promjeniStatus()"
+            class="float-right bg-apank-primary hover:bg-cyan-700 text-white text-sm font-semibold px-4 py-2 mb-5 rounded">
+            Podijeli
+        </button>
     </div>
 </template>
 
@@ -129,6 +134,10 @@ export default {
         },
         spremiOpciju(idOpcije, i, j) {
             debounceFunc('/opcijapitanja/update', { idOpcijePitanja: idOpcije, vrijednost: this.anketa.pitanja[i].opcijePitanja[j].vrijednost })
+        },
+        async promjeniStatus() {
+            await RequestHandler.postRequest(SPRING_URL.concat('/anketa/changestate'), { id: this.anketa.idAnkete.toString() })
+            this.$router.go()
         }
     }
 }

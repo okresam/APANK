@@ -13,17 +13,12 @@ import java.util.List;
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
-public class AnketaDetailsDTO {
+public class AnketaAutorStatusDTO {
 
     private Long idAnkete;
-    private String naslov;
-    private String opis;
     private boolean anonimna;
-    private Date datumStvaranja;
-    private Date datumZavrsetka;
     private Long idStatusaAnkete;
     private String statusAnkete;
     private Long autorId;
     private String autorEmail;
-    private List<Pitanje> pitanja;
 }

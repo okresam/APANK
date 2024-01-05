@@ -6,6 +6,7 @@ import PleaseLogin from './components/PleaseLogin.vue'
 import Register from './components/Register.vue'
 import ListAnketa from './components/ListAnketa.vue'
 import Anketa from './components/Anketa.vue'
+import AnketaNotFound from './components/AnketaNotFound.vue'
 
 const routes = [
     {
@@ -27,6 +28,11 @@ const routes = [
         path: '/anketa/:id',
         name: 'Anketa',
         component: Anketa
+    },
+    {
+        path: '/notfound',
+        name: 'AnketaNotFound',
+        component: AnketaNotFound
     }
 ]
 
@@ -37,9 +43,9 @@ const router = createRouter({
 
 router.beforeEach(async (to, from) => {
 
-    if (!store.state.user && to.name !== 'Login' && to.name !== 'Register') {
-        return { name: 'Login' }
-    }
+    //if (!store.state.user && to.name !== 'Login' && to.name !== 'Register') {
+    //    return { name: 'Login' }
+    //}
 
     if (store.state.user && (to.name === 'Login' || to.name === 'Register')) {
         return { name: 'home' }

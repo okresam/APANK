@@ -2,10 +2,7 @@ package hr.fer.projekt.apank.controller;
 
 import hr.fer.projekt.apank.model.Anketa;
 import hr.fer.projekt.apank.model.Korisnik;
-import hr.fer.projekt.apank.model.dto.AnketaDetailsDTO;
-import hr.fer.projekt.apank.model.dto.AnketaListDTO;
-import hr.fer.projekt.apank.model.dto.AnketaNewDTO;
-import hr.fer.projekt.apank.model.dto.IdDTO;
+import hr.fer.projekt.apank.model.dto.*;
 import hr.fer.projekt.apank.service.AnketaService;
 import hr.fer.projekt.apank.service.KorisnikService;
 import hr.fer.projekt.apank.service.StatusAnketeService;
@@ -72,6 +69,7 @@ public class AnketaController {
                 .anonimna(anketa.isAnonimna())
                 .datumStvaranja(anketa.getDatumStvaranja())
                 .datumZavrsetka(anketa.getDatumZavrsetka())
+                .idStatusaAnkete(anketa.getStatusAnkete().getIdStatusaAnkete())
                 .statusAnkete(anketa.getStatusAnkete().getNazivStatusa())
                 .autorId(anketa.getAutor().getIdKorisnika())
                 .autorEmail(anketa.getAutor().getEmail())
@@ -79,9 +77,30 @@ public class AnketaController {
                 .build();
     }
 
+    @PostMapping("/getAutorStatus")
+    private AnketaAutorStatusDTO getAnketaAutorStatus(@RequestBody IdDTO idDTO) {
+        Anketa anketa = anketaService.getAnketa(Long.valueOf(idDTO.getId()));
+        return AnketaAutorStatusDTO.builder()
+                .idAnkete(anketa.getIdAnkete())
+                .anonimna(anketa.isAnonimna())
+                .idStatusaAnkete(anketa.getStatusAnkete().getIdStatusaAnkete())
+                .statusAnkete(anketa.getStatusAnkete().getNazivStatusa())
+                .autorId(anketa.getAutor().getIdKorisnika())
+                .autorEmail(anketa.getAutor().getEmail())
+                .build();
+    }
+
     @PostMapping("/delete")
     private void deleteAnketa(@RequestBody IdDTO idDTO) {
         anketaService.deleteAnketa(Long.valueOf(idDTO.getId()));
+    }
+
+    @PostMapping("/changestate")
+    private void anketaChangeState(@RequestBody IdDTO idDTO) {
+        Anketa anketa = anketaService.getAnketa(Long.valueOf(idDTO.getId()));
+        Long idNew = Math.min(3, anketa.getStatusAnkete().getIdStatusaAnkete() + 1);
+        anketa.setStatusAnkete(statusAnketeService.fetch(idNew));
+        anketaService.updateAnketa(anketa);
     }
     
 }
