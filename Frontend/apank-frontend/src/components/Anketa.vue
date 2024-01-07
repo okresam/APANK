@@ -3,13 +3,9 @@
         this.$store.state.user.idKorisnika === anketa.autorId &&
         this.anketa.idStatusaAnkete === 1" />
 
-    <div v-else-if="this.$store.state.user &&
+    <AnketaResults v-else-if="this.$store.state.user &&
         this.$store.state.user.idKorisnika === anketa.autorId &&
-        (this.anketa.idStatusaAnkete === 2 || this.anketa.idStatusaAnkete === 3 )">
-        <div class="pt-4 mb-8 relative">
-            Pregled rezultata.
-        </div>
-    </div>
+        (this.anketa.idStatusaAnkete === 2 || this.anketa.idStatusaAnkete === 3 )" />
 
     
     <template v-else>
@@ -29,11 +25,13 @@ import RequestHandler from "./../RequestHandler.js"
 import { SPRING_URL } from "./../constants.js"
 import AnketaEdit from "./AnketaEdit.vue"
 import AnketaFillingOut from "./AnketaFillingOut.vue"
+import AnketaResults from "./AnketaResults.vue"
 
 export default {
     components: {
         AnketaEdit,
-        AnketaFillingOut
+        AnketaFillingOut,
+        AnketaResults
     },
     data() {
         return {

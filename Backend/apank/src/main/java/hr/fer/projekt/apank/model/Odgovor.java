@@ -1,10 +1,9 @@
 package hr.fer.projekt.apank.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.sql.Date;
 import java.util.ArrayList;
@@ -31,10 +30,11 @@ public class Odgovor {
     @Column(name = "datum_odgovora")
     private Date datumOdgovora;
 
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = true)
     @JoinColumn(name = "id_korisnika")
     private Korisnik korisnik;
 
+    @JsonIgnore
     @ManyToOne(optional = false)
     @JoinColumn(name = "id_pitanja")
     private Pitanje pitanje;

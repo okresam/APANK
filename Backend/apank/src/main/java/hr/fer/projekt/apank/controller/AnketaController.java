@@ -2,6 +2,7 @@ package hr.fer.projekt.apank.controller;
 
 import hr.fer.projekt.apank.model.Anketa;
 import hr.fer.projekt.apank.model.Korisnik;
+import hr.fer.projekt.apank.model.Pitanje;
 import hr.fer.projekt.apank.model.dto.*;
 import hr.fer.projekt.apank.service.AnketaService;
 import hr.fer.projekt.apank.service.KorisnikService;
@@ -88,6 +89,35 @@ public class AnketaController {
                 .autorId(anketa.getAutor().getIdKorisnika())
                 .autorEmail(anketa.getAutor().getEmail())
                 .build();
+    }
+
+    @PostMapping("/getResults")
+    private AnketaResultsDTO getAnketaResults(@RequestBody IdDTO idDTO) {
+        Anketa anketa = anketaService.getAnketa(Long.valueOf(idDTO.getId()));
+        List<PitanjeResultsDTO> pitanja = new ArrayList<>();
+        for (Pitanje p : anketa.getPitanja()) {
+            PitanjeResultsDTO pitanjeResultsDTO = PitanjeResultsDTO.builder()
+                    .idPitanja(p.getIdPitanja())
+                    .tekstPitanja(p.getTekstPitanja())
+                    .obavezno(p.isObavezno())
+                    .tipPitanja(p.getTipPitanja())
+                    .odgovori(p.getOdgovori())
+                    .build();
+            pitanja.add(pitanjeResultsDTO);
+        }
+
+        AnketaResultsDTO anketaResultsDTO = AnketaResultsDTO.builder()
+                .idAnkete(anketa.getIdAnkete())
+                .naslov(anketa.getNaslov())
+                .opis(anketa.getOpis())
+                .anonimna(anketa.isAnonimna())
+                .datumStvaranja(anketa.getDatumStvaranja())
+                .datumZavrsetka(anketa.getDatumZavrsetka())
+                .statusAnkete(anketa.getStatusAnkete())
+                .autor(null)
+                .pitanja(pitanja)
+                .build();
+        return anketaResultsDTO;
     }
 
     @PostMapping("/delete")

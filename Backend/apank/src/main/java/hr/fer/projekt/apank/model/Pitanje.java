@@ -40,6 +40,7 @@ public class Pitanje {
     @OneToMany(mappedBy = "pitanje")
     private List<OpcijaPitanja> opcijePitanja;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "pitanje")
     private List<Odgovor> odgovori;
 
