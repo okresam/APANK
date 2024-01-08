@@ -3,7 +3,6 @@
         <div class="pt-4 mb-8 relative">
             <h1 class="text-4xl mt-2 mb-2">{{ anketa.naslov }}</h1>
             <p class="p-1">{{ anketa.opis }}</p>
-            {{ anketa }}
         </div>
     </div>
     <div v-for="pitanje in anketa.pitanja" class="container mt-3 text-black bg-white rounded">
@@ -12,12 +11,13 @@
                 <p class="float-left text-3xl">{{ pitanje.tekstPitanja }}</p>
                 <div class="float-right opacity-50">{{ pitanje.tipPitanja.nazivTipaPitanja }}</div>
             </div>
-            <p>
-                {{ pitanje.odgovori }}
-            </p>
-            <p>
-                {{ pitanje.odgovorSum }}
-            </p>
+            <Bar v-if="pitanje.tipPitanja.idTipaPitanja !== 3" :data="pitanje.chartData" :options="chartOptions" />
+            <div v-else class="overflow-auto h-52 p-2 mt-4 border">
+                <template v-for="odgovor in pitanje.odgovori">
+                    <p>{{ odgovor.tekstOdgovora }}</p>
+                    <hr/>
+                </template>
+            </div>
         </div>
     </div>
     <div v-if="this.status !== 3" class="container mt-3 text-black">
@@ -29,15 +29,35 @@
 </template>
 
 <script>
-import axios from "axios"
 import RequestHandler from "./../RequestHandler.js"
 import { SPRING_URL } from "./../constants.js"
+import { Bar } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+
 
 export default {
+    components: {
+        Bar
+    },
     data() {
         return {
             anketa: '',
-            status: ''
+            status: '',
+            chartOptions: {
+                responsive: true,
+                scale: {
+                    ticks: {
+                        precision: 0
+                    }
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    }
+                }
+            }
         }
     },
     async mounted() {
@@ -58,6 +78,9 @@ export default {
                     }
                 }
                 pitanje.odgovorSum = odgovorSum
+                pitanje.chartData = {}
+                pitanje.chartData.labels = Object.keys(odgovorSum)
+                pitanje.chartData.datasets = [ { data: Object.values(odgovorSum), backgroundColor: '#388697' } ]
             }
         }
     },

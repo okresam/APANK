@@ -9,12 +9,16 @@
 
     
     <template v-else>
-        <div v-if="this.anketa.idStatusaAnkete === 1" class="pt-4 mb-8 relative">
-            Anketa je još u pripremi.
+        <div v-if="this.anketa.idStatusaAnkete === 1" class="container mt-4 text-black bg-white rounded">
+            <div class="pt-4 mb-8 relative text-2xl">
+                Anketa je još u pripremi.
+            </div>
         </div>
         <AnketaFillingOut v-if="this.anketa.idStatusaAnkete === 2" />
-        <div v-if="this.anketa.idStatusaAnkete === 3" class="pt-4 mb-8 relative">
-            Anketa je završila.
+        <div v-if="this.anketa.idStatusaAnkete === 3" class="container mt-4 text-black bg-white rounded">
+            <div class="pt-4 mb-8 relative text-2xl">
+                Anketa je završila.
+            </div>
         </div>
     </template>
 </template>
