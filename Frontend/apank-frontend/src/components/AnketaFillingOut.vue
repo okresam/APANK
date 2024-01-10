@@ -70,12 +70,14 @@ export default {
     },
     methods: {
         async podnesiOdgovore() {
-            let odgovori = []
-            for (let pitanje of this.anketa.pitanja) {
-                odgovori.push(JSON.parse(JSON.stringify(pitanje.odgovor)))
+            if (confirm("Jeste li sigurni?")) {
+                let odgovori = []
+                for (let pitanje of this.anketa.pitanja) {
+                    odgovori.push(JSON.parse(JSON.stringify(pitanje.odgovor)))
+                }
+                await axios.post(SPRING_URL.concat('/odgovor/add'), odgovori)
+                this.zavrseno = true
             }
-            await axios.post(SPRING_URL.concat('/odgovor/add'), odgovori)
-            this.zavrseno = true
         }
     }
 }

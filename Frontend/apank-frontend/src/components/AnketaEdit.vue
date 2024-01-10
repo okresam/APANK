@@ -109,8 +109,10 @@ export default {
             this.$router.go()
         },
         async obrisiPitanje(idPitanja) {
-            await RequestHandler.postRequest(SPRING_URL.concat('/pitanje/delete'), { id: idPitanja.toString() })
-            this.$router.go()
+            if(confirm("Jeste li sigurni?")) {
+                await RequestHandler.postRequest(SPRING_URL.concat('/pitanje/delete'), { id: idPitanja.toString() })
+                this.$router.go()
+            }
         },
         async spremiPitanje(idPitanja, i) {
             await RequestHandler.postRequest(SPRING_URL.concat('/pitanje/update'), { idPitanja: idPitanja, tekstPitanja: JSON.parse(JSON.stringify(this.anketa.pitanja[i])).tekstPitanja })
@@ -136,8 +138,10 @@ export default {
             debounceFunc('/opcijapitanja/update', { idOpcijePitanja: idOpcije, vrijednost: this.anketa.pitanja[i].opcijePitanja[j].vrijednost })
         },
         async promjeniStatus() {
-            await RequestHandler.postRequest(SPRING_URL.concat('/anketa/changestate'), { id: this.anketa.idAnkete.toString() })
-            this.$router.go()
+            if (confirm("Jeste li sigurni?")) {
+                await RequestHandler.postRequest(SPRING_URL.concat('/anketa/changestate'), { id: this.anketa.idAnkete.toString() })
+                this.$router.go()
+            }
         }
     }
 }

@@ -26,6 +26,7 @@
             Završi anketu
         </button>
     </div>
+    <div class="mt-8"></div>
 </template>
 
 <script>
@@ -86,8 +87,10 @@ export default {
     },
     methods: {
         async promjeniStatus() {
-            await RequestHandler.postRequest(SPRING_URL.concat('/anketa/changestate'), { id: this.anketa.idAnkete.toString() })
-            this.$router.go()
+            if (confirm("Jeste li sigurni?")) {
+                await RequestHandler.postRequest(SPRING_URL.concat('/anketa/changestate'), { id: this.anketa.idAnkete.toString() })
+                this.$router.go()
+            }
         }
     }
 }

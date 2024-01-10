@@ -43,7 +43,11 @@
                 <div class="mt-5 pb-4 grid grid-cols-3 gap-4">
                     <div v-if="ankete.length" v-for="anketa in ankete">
                         <div
-                            class="w-full h-full rounded overflow-hidden shadow-lg hover:cursor-pointer border bg-slate-200">
+                            class="w-full h-full rounded overflow-hidden shadow-lg hover:cursor-pointer border bg-slate-200 p-2">
+                            <button @click="obrisiAnketu(anketa.idAnkete)"
+                                class="float-right bg-red-400 hover:bg-red-300 text-white text-sm font-semibold px-4 py-2 rounded">
+                                X
+                            </button>
                             <div @click="$router.push('/anketa/' + anketa.idAnkete)" class="px-6 py-4">
                                 <div class="font-bold text-xl mb-2">{{ anketa.naslov }}</div>
                                 <p class="text-gray-700 text-base">
@@ -100,6 +104,12 @@ export default {
             this.novaAnketa.email = this.$store.state.user.email
             await RequestHandler.postRequest(SPRING_URL.concat('/anketa/add'), this.novaAnketa)
             this.$router.go()
+        },
+        async obrisiAnketu(idAnkete) {
+            if(confirm("Jeste li sigurni?")) {
+                await RequestHandler.postRequest(SPRING_URL.concat('/anketa/delete'), { id: idAnkete })
+                this.$router.go()
+            }
         }
     }
 }

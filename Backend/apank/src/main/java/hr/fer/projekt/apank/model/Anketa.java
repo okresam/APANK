@@ -46,7 +46,7 @@ public class Anketa {
     @JoinColumn(name = "id_autora")
     private Korisnik autor;
 
-    @OneToMany(mappedBy = "anketa")
+    @OneToMany(mappedBy = "anketa", cascade = CascadeType.REMOVE)
     private List<Pitanje> pitanja;
 
 }

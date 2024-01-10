@@ -37,11 +37,11 @@ public class Pitanje {
     @JoinColumn(name = "id_ankete")
     private Anketa anketa;
 
-    @OneToMany(mappedBy = "pitanje")
+    @OneToMany(mappedBy = "pitanje", cascade = CascadeType.REMOVE)
     private List<OpcijaPitanja> opcijePitanja;
 
     @JsonIgnore
-    @OneToMany(mappedBy = "pitanje")
+    @OneToMany(mappedBy = "pitanje", cascade = CascadeType.REMOVE)
     private List<Odgovor> odgovori;
 
 }

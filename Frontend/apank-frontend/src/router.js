@@ -33,6 +33,10 @@ const routes = [
         path: '/notfound',
         name: 'AnketaNotFound',
         component: AnketaNotFound
+    },
+    {
+        path: '/:catchAll(.*)',
+        redirect: '/'
     }
 ]
 
