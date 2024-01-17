@@ -11,7 +11,10 @@
                 <p class="float-left text-3xl">{{ pitanje.tekstPitanja }}</p>
                 <div class="float-right opacity-50">{{ pitanje.tipPitanja.nazivTipaPitanja }}</div>
             </div>
-            <Bar v-if="pitanje.tipPitanja.idTipaPitanja !== 3" :data="pitanje.chartData" :options="chartOptions" />
+            <Bar v-if="pitanje.tipPitanja.idTipaPitanja !== 3 && pitanje.chartData.datasets[0].data.length > 3" :data="pitanje.chartData" :options="barOptions" />
+            <div v-else-if="pitanje.tipPitanja.idTipaPitanja !== 3 && pitanje.chartData.datasets[0].data.length <= 3" class="block ml-auto mr-auto w-1/2 h-3/4">
+                <Pie class=""  :data="pitanje.chartData" :options="pieOptions" />
+            </div>
             <div v-else class="overflow-auto h-52 p-2 mt-4 border">
                 <template v-for="odgovor in pitanje.odgovori">
                     <p>{{ odgovor.tekstOdgovora }}</p>
@@ -32,21 +35,22 @@
 <script>
 import RequestHandler from "./../RequestHandler.js"
 import { SPRING_URL } from "./../constants.js"
-import { Bar } from 'vue-chartjs'
-import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale } from 'chart.js'
+import { Bar, Pie } from 'vue-chartjs'
+import { Chart as ChartJS, Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, ArcElement } from 'chart.js'
 
-ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale)
+ChartJS.register(Title, Tooltip, Legend, BarElement, CategoryScale, LinearScale, ArcElement)
 
 
 export default {
     components: {
-        Bar
+        Bar,
+        Pie
     },
     data() {
         return {
             anketa: '',
             status: '',
-            chartOptions: {
+            barOptions: {
                 responsive: true,
                 scale: {
                     ticks: {
@@ -58,7 +62,25 @@ export default {
                         display: false
                     }
                 }
-            }
+            },
+            pieOptions: {
+                responsive: false,
+                maintainAspectRatio: true,
+                scale: {
+                    yAxes: [
+                        {
+                            ticks: {
+                                beginAtZero: true
+                            }
+                        }
+                    ]
+                },
+                plugins: {
+                    legend: {
+                        display: true
+                    }
+                }
+            },
         }
     },
     async mounted() {
@@ -81,7 +103,12 @@ export default {
                 pitanje.odgovorSum = odgovorSum
                 pitanje.chartData = {}
                 pitanje.chartData.labels = Object.keys(odgovorSum)
-                pitanje.chartData.datasets = [ { data: Object.values(odgovorSum), backgroundColor: '#388697' } ]
+                pitanje.chartData.datasets = [ { data: Object.values(odgovorSum) } ]
+                if (pitanje.chartData.datasets[0].data.length <= 3) {
+                    pitanje.chartData.datasets[0].backgroundColor = ['#41B883', '#E46651', '#00D8FF']
+                } else {
+                    pitanje.chartData.datasets[0].backgroundColor = ['#388697']
+                }
             }
         }
     },
